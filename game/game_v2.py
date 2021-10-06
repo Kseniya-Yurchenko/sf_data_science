@@ -4,6 +4,22 @@
 
 import numpy as np
 
+def binary_search(number: int = 1) -> int:
+    """Ищем число половинным делением диапазона чисел. 
+    Середину диапазона сравниваем с загаданным числом.
+    Если не угадали, сдвигаем границу диапазона и снова делим пополам и т.д."""
+    count = 1
+    left_border = 1  # левая граница диапазона
+    right_border = 100  # правая граница диапазона
+    predict_number = (right_border + left_border) // 2  # берем середину диапазона
+    while number != predict_number:
+        count += 1
+        if number > predict_number:
+            left_border = predict_number + 1  # сдвигаем левую границу
+        elif number < predict_number:
+            right_border = predict_number - 1  # сдвигаем правую границу
+        predict_number = (right_border + left_border) // 2
+    return count
 
 def random_predict(number: int = 1) -> int:
     """Рандомно угадываем число
@@ -25,7 +41,7 @@ def random_predict(number: int = 1) -> int:
 
 
 def score_game(random_predict) -> int:
-    """За какое количство попыток в среднем за 1000 подходов угадывает наш алгоритм
+    """За какое количество попыток в среднем за 1000 подходов угадывает наш алгоритм
 
     Args:
         random_predict ([type]): функция угадывания
@@ -47,4 +63,5 @@ def score_game(random_predict) -> int:
 
 if __name__ == "__main__":
     # RUN
-    score_game(random_predict)
+    #score_game(random_predict)
+    score_game(binary_search)
